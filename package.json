@@ -31,15 +31,16 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
-    "object-path": "^0.11.4"
+    "object-path": "^0.11.4",
+    "bluebird": "^3.5.1"
   },
   "devDependencies": {
-    "bluebird": "^3.5.1",
-    "unit.js": "^2.0.0",
+    "coveralls": "^3.0.0",
     "eslint": "^4.6.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
-    "jest": "^21.1.0"
+    "jest": "^21.1.0",
+    "unit.js": "^2.0.0"
   }
 }
