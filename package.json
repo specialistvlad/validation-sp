@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "name": "validation-sp",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Light and easy validation pipeline including basic rules",
   "author": "Vladyslav Kazantsev <specialistvlad@gmail.com>",
   "bugs": {
@@ -20,7 +20,7 @@
   "engines": {
     "node": ">=8.6"
   },
-  "main": "./dist",
+  "main": "./",
   "scripts": {
     "test": "yarn jest --coverage",
     "test:watch": "yarn jest --watch",
