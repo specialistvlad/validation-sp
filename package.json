@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "name": "validation-sp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Light and easy validation pipeline including basic rules",
   "author": "Vladyslav Kazantsev <specialistvlad@gmail.com>",
   "bugs": {
