@@ -1,0 +1,17 @@
+// Severity should be one of the following: 0 = off, 1 = warn, 2 = error
+{
+  "extends": "eslint-config-airbnb-base",
+  "rules": {
+    "no-console": 1,
+    "max-len": [2, 100],
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/href-no-hash": "off",
+    "import/no-extraneous-dependencies": "off",
+    "class-methods-use-this": "off"
+  },
+  "env": {
+    "browser": false,
+    "node": true,
+    "jest": true
+  }
+}

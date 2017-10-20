@@ -1,0 +1,3 @@
+dist/*
+coverage/*
+back-end/util/generate-module/*
