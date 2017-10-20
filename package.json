@@ -27,7 +27,8 @@
     "lint": "eslint ./",
     "lint:diff": "eslint $(git diff develop --name-only | grep .js$)",
     "build": "echo Nothing to do yet",
-    "build:check": "yarn lint && yarn test"
+    "build:check": "yarn lint && yarn test",
+    "coveralls": "cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
     "lodash": "^4.17.4",

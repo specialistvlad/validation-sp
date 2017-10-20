@@ -4,10 +4,11 @@ node_js:
   - "8"
 
 install:
-  - npm install
+  - yarn install --freeze-lockfile
 
 script:
-  - npm run build:check
+  - yarn build:check
 
 # Send coverage data to Coveralls
-after_script: "cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
+after_script:
+  - yarn coveralls
