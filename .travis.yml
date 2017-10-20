@@ -8,7 +8,4 @@ install:
 
 script:
   - yarn build:check
-
-# Send coverage data to Coveralls
-after_script:
   - yarn coveralls
