@@ -22,7 +22,7 @@
   },
   "main": "./",
   "scripts": {
-    "test": "yarn jest --coverage",
+    "test": "yarn jest --config ./jest.config.js",
     "test:watch": "yarn jest --watch",
     "lint": "eslint ./",
     "lint:diff": "eslint $(git diff develop --name-only | grep .js$)",
