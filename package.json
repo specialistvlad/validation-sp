@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "name": "validation-sp",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Light and easy validation pipeline including basic rules",
   "author": "Vladyslav Kazantsev <specialistvlad@gmail.com>",
   "bugs": {
@@ -20,26 +20,28 @@
   "engines": {
     "node": ">=8.6"
   },
-  "main": "./dist",
+  "main": "./",
   "scripts": {
-    "test": "yarn jest --coverage",
+    "test": "yarn jest --config ./jest.config.js",
     "test:watch": "yarn jest --watch",
     "lint": "eslint ./",
     "lint:diff": "eslint $(git diff develop --name-only | grep .js$)",
     "build": "echo Nothing to do yet",
-    "build:check": "yarn lint && yarn test"
+    "build:check": "yarn lint && yarn test",
+    "coveralls": "cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
     "lodash": "^4.17.4",
-    "object-path": "^0.11.4"
+    "object-path": "^0.11.4",
+    "bluebird": "^3.5.1"
   },
   "devDependencies": {
-    "bluebird": "^3.5.1",
-    "unit.js": "^2.0.0",
+    "coveralls": "^3.0.0",
     "eslint": "^4.6.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
-    "jest": "^21.1.0"
+    "jest": "^21.1.0",
+    "unit.js": "^2.0.0"
   }
 }

@@ -22,6 +22,7 @@ class Validation {
     }
 
     this.pattern = pattern;
+    this.validate = this.validate.bind(this);
   }
 
   async validate(data, options) {

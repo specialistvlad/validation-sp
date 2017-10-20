@@ -39,10 +39,6 @@ class Validators {
       `Field length must be more than ${len}` : null);
   }
 
-  // static date(val) {
-  //   return moment(val).isValid() ? null : 'Should be a date format';
-  // }
-
   static oneOf(...args) {
     return val => (args.includes(val) ? null : `Should be one of ${args.join(',')}`);
   }
