@@ -1,7 +1,10 @@
-const validation = require('./validation');
+const Validation = require('./validation');
+const Validators = require('./validators');
+const errors = require('./errors');
 
 module.exports = {
-  Create: validation.create,
-  Validators: validation.validators,
-  errors: validation.errors,
+  create: Validation.create,
+  Validation,
+  Validators,
+  errors,
 };
