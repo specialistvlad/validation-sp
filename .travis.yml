@@ -8,4 +8,6 @@ install:
 
 script:
   - yarn build:check
+  - ls -la
+  - ls -la coverage/
   - yarn coveralls
