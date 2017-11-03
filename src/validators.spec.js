@@ -3,7 +3,7 @@ const test = require('unit.js');
 const CreateValidator = require('./validation');
 const Validators = require('./validators');
 
-describe('validation', () => {
+describe('validators', () => {
   it('required() field should be checked always', (done) => {
     const pattern = {
       field1: Validators.required(),
@@ -84,10 +84,10 @@ describe('validation', () => {
     };
 
     const pattern = {
-      float: [Validators.required(), Validators.number],
-      float2: [Validators.number],
-      number: [Validators.required(), Validators.number],
-      number2: [Validators.number],
+      float: [Validators.required(), Validators.number()],
+      float2: [Validators.number()],
+      number: [Validators.required(), Validators.number()],
+      number2: [Validators.number()],
     };
 
     const validator = new CreateValidator(pattern);
@@ -106,10 +106,10 @@ describe('validation', () => {
     };
 
     const pattern = {
-      float: [Validators.required(), Validators.number],
-      float2: [Validators.number],
-      number: [Validators.required(), Validators.number],
-      number2: [Validators.number],
+      float: [Validators.required(), Validators.number()],
+      float2: [Validators.number()],
+      number: [Validators.required(), Validators.number()],
+      number2: [Validators.number()],
     };
 
     const errors = {

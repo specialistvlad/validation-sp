@@ -81,17 +81,17 @@ class Validation {
     const errors = _.pickBy(res, value => !_.isEmpty(value));
 
     if (_.keys(errors).length === 0) {
-      return this.prepareSingleResolving(data);
+      return this.prepareResolving(data);
     }
 
-    return this.prepareSingleRejection(errors, data, options);
+    return this.prepareRejection(errors, data, options);
   }
 
-  async prepareSingleResolving(arg) {
+  async prepareResolving(arg) {
     return arg;
   }
 
-  async prepareSingleRejection(...args) {
+  async prepareRejection(...args) {
     throw new eFactory.ValidationError(...args);
   }
 

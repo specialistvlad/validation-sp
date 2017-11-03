@@ -1,8 +1,5 @@
 const _ = require('lodash');
-// const moment = require('moment');
 
-// basic signature is - const validateFunction = (val, key, options) => {}
-// return null or undefined if no errors found or other else if is
 class Validators {
   static required() {
     const func = val => (_.isUndefined(val) ? 'Required field' : null);
@@ -10,23 +7,23 @@ class Validators {
     return func;
   }
 
-  static number(val) {
-    return !_.isNumber(val) ? 'Should be a number' : null;
+  static number() {
+    return val => (!_.isNumber(val) ? 'Should be a number' : null);
   }
 
-  static numberOrNull(val) {
-    return val === null || _.isNumber(val) ? null : 'Should be a number or null';
+  static numberOrNull() {
+    return val => (val === null || _.isNumber(val) ? null : 'Should be a number or null');
   }
 
-  static text(val) {
-    return !_.isString(val) ? 'Should be string' : null;
+  static text() {
+    return val => (!_.isString(val) ? 'Should be string' : null);
   }
 
-  static boolean(val) {
-    return !_.isBoolean(val) ? 'Should be boolean' : null;
+  static boolean() {
+    return val => (!_.isBoolean(val) ? 'Should be boolean' : null);
   }
-  static array(val) {
-    return !_.isArray(val) ? 'Should be array' : null;
+  static array() {
+    return val => (!_.isArray(val) ? 'Should be array' : null);
   }
 
   static lengthMore(len) {

@@ -39,6 +39,18 @@ describe('validation', () => {
       .catch(() => done());
   });
 
+  it('check rejecting fields', (done) => {
+    const validator = new CreateValidator(pattern1);
+    validator.validate({ test: 'should be returned as error' })
+      .then(done)
+      .catch((res) => {
+        test.object({
+          test: 'should be returned as error',
+        }).is(res.fields);
+        done();
+      });
+  });
+
   it('check all pattern definition ways', (done) => {
     const source = {
       field: 123.123,
@@ -49,7 +61,7 @@ describe('validation', () => {
     const pattern = {
       field: validators.required(),
       field2: [validators.required()],
-      field3: [validators.required(), validators.text],
+      field3: [validators.required(), validators.text()],
     };
 
     const validator = new CreateValidator(pattern);
