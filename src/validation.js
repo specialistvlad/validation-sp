@@ -63,13 +63,6 @@ class Validation {
       // First found error stops execution
       // eslint-disable-next-line no-await-in-loop
       const result = await validator(valueToValidate, options);
-      if (_.isFunction(result)) {
-        throw new Error(`Validation result should not be a function, did you forget ()?
-          propName:${options.propName}
-          result: ${result}
-          validator: ${validator}
-        `);
-      }
       if (result) {
         return result;
       }

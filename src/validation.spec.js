@@ -152,8 +152,99 @@ describe('validation', () => {
       })
       .catch(done);
   });
-  xit('single validator can be promise', (done) => { done(); });
-  xit('single validator should correct resolves field validation', (done) => { done(); });
-  xit('single validator should correct rejects field validation', (done) => { done(); });
-  xit('single validator can be async function', (done) => { done(); });
+
+  it('single validator can be promise', (done) => {
+    const pattern = {
+      field1: [() => Promise.resolve('test1')],
+      field2: [() => Promise.resolve('test2')],
+    };
+
+    const source = {
+      field1: '1',
+      field2: '2',
+    };
+
+    const expected = {
+      field1: 'test1',
+      field2: 'test2',
+    };
+
+    const validator = new CreateValidator(pattern);
+    validator.validate(source)
+      .catch((actual) => {
+        test.assert(actual.fields.field1 === expected.field1);
+        test.assert(actual.fields.field2 === expected.field2);
+        done();
+      })
+      .then(done);
+  });
+
+  it('check promise sequence', (done) => {
+    const timeoutPromise = (ms, val, fail) => () =>
+      (new Promise(resolve => setTimeout(() => {
+        if (fail) {
+          return resolve(val);
+        }
+        return resolve();
+      }, ms)));
+
+    const pattern = {
+      field1: [
+        timeoutPromise(300, '1_1'),
+        timeoutPromise(100, '1_2', true),
+        timeoutPromise(200, '1_3'),
+      ],
+      field2: [
+        timeoutPromise(400, '2_1'),
+        timeoutPromise(100, '2_2'),
+        timeoutPromise(250, '2_3', true),
+        timeoutPromise(150, '2_4'),
+      ],
+    };
+
+    const source = {
+      field1: '1',
+      field2: '2',
+    };
+
+    const expected = {
+      field1: '1_2',
+      field2: '2_3',
+    };
+
+    const validator = new CreateValidator(pattern);
+    validator.validate(source)
+      .catch((actual) => {
+        test.assert(actual.fields.field1 === expected.field1);
+        test.assert(actual.fields.field2 === expected.field2);
+        done();
+      })
+      .then(done);
+  });
+
+  it('single validator can be async function', (done) => {
+    const pattern = {
+      field1: [async () => 'test1'],
+      field2: [async () => 'test2'],
+    };
+
+    const source = {
+      field1: '1',
+      field2: '2',
+    };
+
+    const expected = {
+      field1: 'test1',
+      field2: 'test2',
+    };
+
+    const validator = new CreateValidator(pattern);
+    validator.validate(source)
+      .catch((actual) => {
+        test.assert(actual.fields.field1 === expected.field1);
+        test.assert(actual.fields.field2 === expected.field2);
+        done();
+      })
+      .then(done);
+  });
 });
