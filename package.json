@@ -31,9 +31,7 @@
     "coveralls": "cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
-    "lodash": "^4.17.4",
-    "object-path": "^0.11.4",
-    "bluebird": "^3.5.1"
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "coveralls": "^3.0.0",

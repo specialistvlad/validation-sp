@@ -1,6 +1,12 @@
-const _ = require('lodash');
-const Promise = require('bluebird');
-const objectPath = require('object-path');
+const isEmpty = require('lodash/isEmpty');
+const isArray = require('lodash/isArray');
+const isUndefined = require('lodash/isUndefined');
+const isFunction = require('lodash/isFunction');
+const flatten = require('lodash/flatten');
+const values = require('lodash/values');
+const pickBy = require('lodash/pickBy');
+const get = require('lodash/get');
+
 const eFactory = require('./errors');
 
 class Validation {
@@ -11,11 +17,16 @@ class Validation {
 
   constructor(pattern, initOptions) {
     this.initOpts = initOptions;
-    if (!pattern || _.keys(pattern).length === 0) {
+    if (!pattern) {
       throw new eFactory.PatternEmpty();
     }
 
-    const unknownValidators = _.flatten(_.values(pattern)).filter(val => !_.isFunction(val));
+    const pt = { ...pattern };
+    if (Object.keys(pt).length === 0) {
+      throw new eFactory.PatternEmpty();
+    }
+
+    const unknownValidators = flatten(values(pt)).filter(val => !isFunction(val));
 
     if (unknownValidators.length > 0) {
       throw new eFactory.UnknownValidators(unknownValidators, pattern);
@@ -26,23 +37,27 @@ class Validation {
   }
 
   async validate(data, options) {
-    const result = await this.templateValidation(data, options);
+    const result = await this.templateValidation({ ...data }, options);
     return this.userHandleResult(await this.handleResults(result, data));
   }
 
   async templateValidation(data, options) {
-    return Promise.props(_.mapValues(
-      this.pattern,
-      (value, key) => this.propValidation(data, key, options),
-    ));
+    const result = {};
+
+    const propsMapper = async (key) => {
+      result[key] = await this.propValidation(data, key, options);
+    };
+
+    await Promise.all(Object.keys(this.pattern).map(propsMapper));
+    return result;
   }
 
   async propValidation(data, key, options) {
-    const fieldValue = objectPath.get(data, key);
+    const fieldValue = get(data, key);
     const value = this.pattern[key];
-    const validators = _.isArray(value) ? value : [value];
+    const validators = isArray(value) ? value : [value];
 
-    if (_.isUndefined(fieldValue) && !(validators[0] || {}).required) {
+    if (isUndefined(fieldValue) && !(validators[0] || {}).required) {
       return undefined;
     }
 
@@ -60,7 +75,6 @@ class Validation {
     for (let i = 0; i < validatorsList.length; i += 1) {
       const validator = validatorsList[i];
       // It is expected behavior to run validators in serial
-      // First found error stops execution
       // eslint-disable-next-line no-await-in-loop
       const result = await validator(valueToValidate, options);
       if (result) {
@@ -71,9 +85,9 @@ class Validation {
   }
 
   async handleResults(res, data, options) {
-    const errors = _.pickBy(res, value => !_.isEmpty(value));
+    const errors = pickBy(res, value => !isEmpty(value));
 
-    if (_.keys(errors).length === 0) {
+    if (Object.keys(errors).length === 0) {
       return this.prepareResolving(data);
     }
 

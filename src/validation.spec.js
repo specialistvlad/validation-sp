@@ -226,16 +226,19 @@ describe('validation', () => {
     const pattern = {
       field1: [async () => 'test1'],
       field2: [async () => 'test2'],
+      field3: [() => 'test3'],
     };
 
     const source = {
       field1: '1',
       field2: '2',
+      field3: '3',
     };
 
     const expected = {
       field1: 'test1',
       field2: 'test2',
+      field3: 'test3',
     };
 
     const validator = new CreateValidator(pattern);
