@@ -21,6 +21,7 @@
     "node": ">=8.6"
   },
   "main": "./",
+  "module": "./",
   "scripts": {
     "test": "yarn jest --config ./jest.config.js",
     "test:watch": "yarn jest --watch --onlyChanged",
